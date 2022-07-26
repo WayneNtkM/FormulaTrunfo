@@ -102,14 +102,19 @@ export default class Form extends Component {
         <section className="super-sec">
 
           {
-            hasTrunfo === false ? <input
-              data-testid="trunfo-input"
-              className="checked-inpt"
-              type="checkbox"
-              name="checked"
-              checked={ cardTrunfo }
-              onChange={ onInputChange }
-            />
+            hasTrunfo === false
+              ? (
+                <label htmlFor="checked">
+                  Super Trunfo
+                  <input
+                    data-testid="trunfo-input"
+                    className="checked-inpt"
+                    type="checkbox"
+                    name="checked"
+                    checked={ cardTrunfo }
+                    onChange={ onInputChange }
+                  />
+                </label>)
               : 'Você já tem um Super Trunfo em seu baralho'
           }
 

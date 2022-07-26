@@ -5,16 +5,36 @@
 }
 
 .App header {
+  align-items: center;
+  background-color: rgb(240, 0, 0);
+  display: flex;
+  height: 90px;
+  justify-content: flex-start;
+  margin-bottom: 5em;
   text-align: center;
+}
+
+.App header img {
+  background: none;
+  height: 100px;
+  margin: 0 2em;
+  width: 120px;
+}
+
+.App header h1 {
+  color: white;
 }
 
 .form-card-div {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
   margin: 2em;
 }
 
 .form-sec {
   background-color: rgb(31, 30, 30);
+  border-bottom-left-radius: 17px;
   border-top-left-radius: 17px;
   color: white;
   display: flex;
@@ -93,7 +113,7 @@
 }
 
 .btn-submit {
-  background-color: rgb(248, 4, 4);
+  background-color: #e10600;
   border-radius: 8px;
   color: white;
   font-size: 20px;

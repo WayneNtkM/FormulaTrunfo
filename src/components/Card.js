@@ -12,6 +12,7 @@ export default class Card extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      // hasTrunfo,
     } = this.props;
 
     return (

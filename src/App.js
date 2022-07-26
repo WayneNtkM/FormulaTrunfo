@@ -3,10 +3,12 @@ import Card from './components/Card';
 import Form from './components/Form';
 import './style/style.css';
 import './style/card.css';
+import Button from './components/Button';
 
 class App extends React.Component {
   constructor() {
     super();
+    const storage = JSON.parse(localStorage.getItem('cards'));
     this.state = {
       nameInpt: '',
       description: '',
@@ -16,7 +18,7 @@ class App extends React.Component {
       attr3: '0',
       rare: 'normal',
       cardTrunfo: false,
-      allCards: [],
+      allCards: storage === null ? [] : storage,
     };
   }
 
@@ -88,7 +90,13 @@ class App extends React.Component {
       attr2: '0',
       attr3: '0',
       rare: 'normal',
-    }));
+      cardTrunfo: false,
+    }), () => {
+      const { allCards } = this.state;
+      localStorage.setItem('cards', JSON.stringify(allCards));
+    });
+    // this.setState((prevState) => ({
+    //   deleteButton: prevState.allCards.length > 0 }));
   }
 
   hasTrunfo = () => {
@@ -99,10 +107,11 @@ class App extends React.Component {
     return false;
   }
 
-  // local() {
-  //   const cardList = document.querySelector('.cards-list');
-  //   localStorage.setItem('cards', cardList.childNodes);
-  // }
+  deleteCard = (cardName) => {
+    this.setState((prevState) => ({
+      allCards: prevState.allCards.filter(({ name }) => name !== cardName) }));
+    console.log('a');
+  }
 
   render() {
     const {
@@ -117,11 +126,13 @@ class App extends React.Component {
       allCards,
     } = this.state;
 
-    // this.local();
-
     return (
       <div className="App">
         <header className="header">
+          <img
+            src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg"
+            alt="f1 logo"
+          />
           <h1>Formula Trunfo</h1>
         </header>
         <div className="form-card-div">
@@ -153,6 +164,7 @@ class App extends React.Component {
               cardAttr3={ attr3 }
               cardRare={ rare }
               cardTrunfo={ cardTrunfo }
+              hasTrunfo={ this.hasTrunfo() }
               onInputChange={ this.handleChange }
             />
           </section>
@@ -169,18 +181,20 @@ class App extends React.Component {
               rarity,
               trunfo,
             }) => (
-              <Card
-                key={ name }
-                cardName={ name }
-                cardDescription={ desc }
-                cardImage={ image }
-                cardAttr1={ at1 }
-                cardAttr2={ at2 }
-                cardAttr3={ at3 }
-                cardRare={ rarity }
-                cardTrunfo={ trunfo }
-                // onInputChange={ this.handleChange }
-              />
+              <section className="cards-deck" key={ name }>
+                <Card
+                  cardName={ name }
+                  cardDescription={ desc }
+                  cardImage={ image }
+                  cardAttr1={ at1 }
+                  cardAttr2={ at2 }
+                  cardAttr3={ at3 }
+                  cardRare={ rarity }
+                  cardTrunfo={ trunfo }
+                  deleteCard={ () => this.deleteCard(name) }
+                />
+                <Button deleteCard={ () => this.deleteCard(name) } />
+              </section>
             ))
           }
         </div>

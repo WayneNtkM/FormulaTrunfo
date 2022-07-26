@@ -1,7 +1,7 @@
 .card-sec {
   align-items: center;
   background-color: white;
-  border: 10px solid red;
+  border: 10px solid #e10600;
   border-bottom: transparent;
   border-left: transparent;
   border-top-right-radius: 17px;
@@ -21,7 +21,7 @@
   background-color: rgb(21, 21, 31);
   border-radius: 17px;
   display: flex;
-  height: 450px;
+  height: 510px;
   justify-content: center;
   width: 300px;
 }
@@ -32,11 +32,12 @@
   border-radius: 17px;
   display: flex;
   flex-flow: column;
-  height: 430px;
+  height: 490px;
   width: 280px;
 }
 
 .card img {
+  object-fit: cover;
   width: 100%;
 }
 
@@ -58,14 +59,15 @@
 }
 
 .img-card img {
-  height: 175px;
+  border-radius: 7px;
+  height: 260px;
   width: 100%;
 }
 
 .desc-sec {
   border-radius: 4px;
   color: rgb(225, 216, 216);
-  height: 80px;
+  height: 60px;
   margin-top: 0.6em;
   padding: 2px;
   width: 100%;
@@ -111,4 +113,28 @@
   flex-flow: row wrap;
   gap: 1.6em;
   justify-content: center;
+  margin: 2em;
+}
+
+.cards-deck {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.cards-deck .card-out {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-remove {
+  background-color: #e30800;
+  border: transparent;
+  border-bottom-left-radius: 17px;
+  border-bottom-right-radius: 17px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  width: 100%;
 }
