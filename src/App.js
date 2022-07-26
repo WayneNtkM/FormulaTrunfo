@@ -72,14 +72,14 @@ class App extends React.Component {
     } = this.state;
 
     this.setState((prevState) => ({
-      allCards: [...prevState.allCards, { nameInpt,
-        description,
-        imageSrc,
-        attr1,
-        attr2,
-        attr3,
-        rare,
-        cardTrunfo },
+      allCards: [...prevState.allCards, { name: nameInpt,
+        desc: description,
+        image: imageSrc,
+        at1: attr1,
+        at2: attr2,
+        at3: attr3,
+        rarity: rare,
+        trunfo: cardTrunfo },
       ],
       nameInpt: '',
       description: '',
@@ -99,6 +99,11 @@ class App extends React.Component {
     return false;
   }
 
+  // local() {
+  //   const cardList = document.querySelector('.cards-list');
+  //   localStorage.setItem('cards', cardList.childNodes);
+  // }
+
   render() {
     const {
       nameInpt,
@@ -111,6 +116,8 @@ class App extends React.Component {
       cardTrunfo,
       allCards,
     } = this.state;
+
+    // this.local();
 
     return (
       <div className="App">
@@ -149,6 +156,33 @@ class App extends React.Component {
               onInputChange={ this.handleChange }
             />
           </section>
+        </div>
+        <div className="cards-list">
+          {
+            allCards.map(({
+              name,
+              desc,
+              image,
+              at1,
+              at2,
+              at3,
+              rarity,
+              trunfo,
+            }) => (
+              <Card
+                key={ name }
+                cardName={ name }
+                cardDescription={ desc }
+                cardImage={ image }
+                cardAttr1={ at1 }
+                cardAttr2={ at2 }
+                cardAttr3={ at3 }
+                cardRare={ rarity }
+                cardTrunfo={ trunfo }
+                // onInputChange={ this.handleChange }
+              />
+            ))
+          }
         </div>
       </div>
     );

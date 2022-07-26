@@ -112,7 +112,6 @@ export default class Form extends Component {
             />
               : 'Você já tem um Super Trunfo em seu baralho'
           }
-          Super Trunfo
 
           {/* <input
             data-testid="trunfo-input"
