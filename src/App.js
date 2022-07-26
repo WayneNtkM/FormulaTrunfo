@@ -8,7 +8,7 @@ import Button from './components/Button';
 class App extends React.Component {
   constructor() {
     super();
-    const storage = JSON.parse(localStorage.getItem('cards'));
+    // const storage = JSON.parse(localStorage.getItem('cards'));
     this.state = {
       nameInpt: '',
       description: '',
@@ -18,7 +18,7 @@ class App extends React.Component {
       attr3: '0',
       rare: 'normal',
       cardTrunfo: false,
-      allCards: storage === null ? [] : storage,
+      allCards: [],
     };
   }
 
