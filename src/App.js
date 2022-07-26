@@ -109,7 +109,6 @@ class App extends React.Component {
       attr3,
       rare,
       cardTrunfo,
-      hasTrunfo,
       allCards,
     } = this.state;
 
