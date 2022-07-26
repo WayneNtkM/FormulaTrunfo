@@ -1,0 +1,107 @@
+.card-sec {
+  align-items: center;
+  background-color: white;
+  border: 10px solid red;
+  border-bottom: transparent;
+  border-left: transparent;
+  border-top-right-radius: 17px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 45%;
+}
+
+.card-sec h2 {
+  font-size: 30px;
+  margin-bottom: 3em;
+}
+
+.card-out {
+  align-items: center;
+  background-color: rgb(20, 19, 19);
+  border-radius: 17px;
+  display: flex;
+  height: 450px;
+  justify-content: center;
+  width: 300px;
+}
+
+.card {
+  align-items: center;
+  background-color: rgb(20, 19, 19);
+  border-radius: 17px;
+  display: flex;
+  flex-flow: column;
+  height: 430px;
+  width: 280px;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card-in {
+  border-radius: 9px;
+  height: 90%;
+  margin: 1em;
+  width: 90%;
+}
+
+.name {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  color: white;
+  height: 30px;
+  margin-bottom: 1em;
+  padding: 3px;
+  width: 100%;
+}
+
+.img-card img {
+  height: 175px;
+  width: 100%;
+}
+
+.desc-sec {
+  border-radius: 4px;
+  color: rgb(225, 216, 216);
+  height: 80px;
+  margin-top: 0.6em;
+  padding: 2px;
+  width: 100%;
+}
+
+.desc-sec p {
+  display: flex;
+  flex-wrap: wrap;
+  line-break: strict;
+  white-space: normal;
+  word-break: break-all;
+}
+
+.attr-sec {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: column;
+  height: 70px;
+  margin-top: 0.3em;
+}
+
+.attr-sec h4:first-of-type {
+  color: rgb(151, 4, 4);
+}
+
+.attr-sec h4:nth-of-type( 2 ) {
+  color: rgb(5, 64, 103);
+}
+
+.attr-sec h4:nth-of-type( 3 ) {
+  color: rgb(195, 182, 9);
+}
+
+.rare-trunfo {
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.5em;
+}

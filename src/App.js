@@ -1,10 +1,156 @@
 import React from 'react';
+import Card from './components/Card';
+import Form from './components/Form';
+import './style/style.css';
+import './style/card.css';
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      nameInpt: '',
+      description: '',
+      imageSrc: '',
+      attr1: '0',
+      attr2: '0',
+      attr3: '0',
+      rare: 'normal',
+      cardTrunfo: false,
+      allCards: [],
+    };
+  }
+
+  handleChange = ({ target }) => {
+    const { name, value, type } = target;
+    if (type === 'checkbox') {
+      this.setState((prevState) => {
+        if (!prevState) return { cardTrunfo: prevState.cardTrunfo };
+        return { cardTrunfo: !prevState.cardTrunfo };
+      });
+    }
+    this.setState({ [name]: value });
+  }
+
+  isdisabled = () => {
+    const {
+      nameInpt,
+      description,
+      imageSrc,
+      rare,
+      attr1,
+      attr2,
+      attr3,
+    } = this.state;
+
+    const attr1ToNum = Number(attr1);
+    const attr2ToNum = Number(attr2);
+    const attr3ToNum = Number(attr3);
+
+    const sum = attr1ToNum + attr2ToNum + attr3ToNum;
+    const maxSum = 210;
+    const maxAttrNumber = 90;
+
+    if (!nameInpt || !description || !imageSrc || !rare) return true;
+    if (sum > maxSum) return true;
+    if (attr1ToNum > maxAttrNumber || attr1ToNum < 0) return true;
+    if (attr2ToNum > maxAttrNumber || attr2ToNum < 0) return true;
+    if (attr3ToNum > maxAttrNumber || attr3ToNum < 0) return true;
+    return false;
+  }
+
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+    const {
+      nameInpt,
+      description,
+      imageSrc,
+      attr1,
+      attr2,
+      attr3,
+      rare,
+      cardTrunfo,
+    } = this.state;
+
+    this.setState((prevState) => ({
+      allCards: [...prevState.allCards, { nameInpt,
+        description,
+        imageSrc,
+        attr1,
+        attr2,
+        attr3,
+        rare,
+        cardTrunfo },
+      ],
+      nameInpt: '',
+      description: '',
+      imageSrc: '',
+      attr1: '0',
+      attr2: '0',
+      attr3: '0',
+      rare: 'normal',
+    }));
+  }
+
+  hasTrunfo = () => {
+    const { allCards } = this.state;
+    const trunfo = allCards.map(({ cardTrunfo }) => cardTrunfo);
+    if (trunfo.length === 0) return false;
+    if (trunfo) return true;
+    return false;
+  }
+
   render() {
+    const {
+      nameInpt,
+      description,
+      imageSrc,
+      attr1,
+      attr2,
+      attr3,
+      rare,
+      cardTrunfo,
+      hasTrunfo,
+      allCards,
+    } = this.state;
+
     return (
-      <div>
-        <h1>Tryunfo</h1>
+      <div className="App">
+        <header className="header">
+          <h1>Formula Trunfo</h1>
+        </header>
+        <div className="form-card-div">
+          <section className="form-sec">
+            <Form
+              cardName={ nameInpt }
+              cardDescription={ description }
+              cardImage={ imageSrc }
+              cardAttr1={ attr1 }
+              cardAttr2={ attr2 }
+              cardAttr3={ attr3 }
+              cardRare={ rare }
+              cardTrunfo={ cardTrunfo }
+              hasTrunfo={ this.hasTrunfo() }
+              allCards={ allCards }
+              onInputChange={ this.handleChange }
+              isSaveButtonDisabled={ this.isdisabled() }
+              onSaveButtonClick={ this.onSaveButtonClick }
+            />
+          </section>
+          <section className="card-sec">
+            <h2>Prévia da Carta</h2>
+            <Card
+              cardName={ nameInpt }
+              cardDescription={ description }
+              cardImage={ imageSrc }
+              cardAttr1={ attr1 }
+              cardAttr2={ attr2 }
+              cardAttr3={ attr3 }
+              cardRare={ rare }
+              cardTrunfo={ cardTrunfo }
+              onInputChange={ this.handleChange }
+            />
+          </section>
+        </div>
       </div>
     );
   }
