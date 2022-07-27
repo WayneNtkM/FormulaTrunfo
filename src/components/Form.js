@@ -26,7 +26,7 @@ export default class Form extends Component {
           className="inpt-name"
           type="text"
           placeholder="placeholder"
-          name="nameInpt"
+          name="cardName"
           value={ cardName }
           onChange={ onInputChange }
         />

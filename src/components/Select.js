@@ -1,15 +1,16 @@
 import { React, Component } from 'react';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 export default class Select extends Component {
   render() {
-    const { filterCards } = this.props;
+    const { filterCards, disabled } = this.props;
     return (
       <select
         data-testid="rare-filter"
         className="filter-rare"
         name="rare"
         defaultValue="todas"
+        disabled={ disabled }
         onChange={ filterCards }
       >
         <option>todas</option>
@@ -23,4 +24,5 @@ export default class Select extends Component {
 
 Select.propTypes = {
   filterCards: func.isRequired,
+  disabled: bool.isRequired,
 };

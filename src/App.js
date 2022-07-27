@@ -5,13 +5,14 @@ import './style/style.css';
 import './style/card.css';
 import Button from './components/Button';
 import Select from './components/Select';
+import Checkbox from './components/Checkbox';
+import Input from './components/Input';
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor() {
     super();
-    // const storage = JSON.parse(localStorage.getItem('cards'));
     this.state = {
-      nameInpt: '',
+      cardName: '',
       description: '',
       imageSrc: '',
       attr1: '0',
@@ -20,8 +21,10 @@ class App extends React.Component {
       rare: 'normal',
       cardTrunfo: false,
       allCards: [],
+      allCardsFiltered: [],
       filter: '',
       filterRare: 'todas',
+      disabled: false,
     };
   }
 
@@ -38,13 +41,7 @@ class App extends React.Component {
 
   isdisabled = () => {
     const {
-      nameInpt,
-      description,
-      imageSrc,
-      rare,
-      attr1,
-      attr2,
-      attr3,
+      cardName, description, imageSrc, rare, attr1, attr2, attr3,
     } = this.state;
 
     const attr1ToNum = Number(attr1);
@@ -55,7 +52,7 @@ class App extends React.Component {
     const maxSum = 210;
     const maxAttrNumber = 90;
 
-    if (!nameInpt || !description || !imageSrc || !rare) return true;
+    if (!cardName || !description || !imageSrc || !rare) return true;
     if (sum > maxSum) return true;
     if (attr1ToNum > maxAttrNumber || attr1ToNum < 0) return true;
     if (attr2ToNum > maxAttrNumber || attr2ToNum < 0) return true;
@@ -66,7 +63,11 @@ class App extends React.Component {
   onSaveButtonClick = (event) => {
     event.preventDefault();
     const {
-      nameInpt,
+      cardName, description, imageSrc, attr1, attr2, attr3, rare, cardTrunfo, allCards,
+    } = this.state;
+
+    const card = {
+      cardName,
       description,
       imageSrc,
       attr1,
@@ -74,75 +75,91 @@ class App extends React.Component {
       attr3,
       rare,
       cardTrunfo,
-    } = this.state;
+    };
 
-    this.setState((prevState) => ({
-      allCards: [...prevState.allCards, { name: nameInpt,
-        desc: description,
-        image: imageSrc,
-        at1: attr1,
-        at2: attr2,
-        at3: attr3,
-        rarity: rare,
-        trunfo: cardTrunfo },
-      ],
-      nameInpt: '',
-      description: '',
-      imageSrc: '',
-      attr1: '0',
-      attr2: '0',
-      attr3: '0',
-      rare: 'normal',
-      cardTrunfo: false,
-    }), () => {
-      const { allCards } = this.state;
-      localStorage.setItem('cards', JSON.stringify(allCards));
+    this.setState({ allCards: [...allCards, card],
+      allCardsFiltered: [...allCards, card] }, () => {
+      this.setState({
+        cardName: '',
+        description: '',
+        imageSrc: '',
+        attr1: '0',
+        attr2: '0',
+        attr3: '0',
+        rare: 'normal',
+        cardTrunfo: false,
+      });
+      this.hasTrunfo();
     });
-    // this.setState((prevState) => ({
-    //   deleteButton: prevState.allCards.length > 0 }));
   }
 
   hasTrunfo = () => {
-    const { allCards } = this.state;
-    const trunfo = allCards.map(({ cardTrunfo }) => cardTrunfo);
-    if (trunfo.length === 0) return false;
-    if (trunfo) return true;
+    const { allCardsFiltered } = this.state;
+    const lookForTrunfo = allCardsFiltered.map(({ cardTrunfo }) => cardTrunfo)
+      .some((e) => e === true);
+    if (lookForTrunfo) return true;
     return false;
   }
 
-  deleteCard = (cardName) => {
+  deleteCard = (param) => {
     this.setState((prevState) => ({
-      allCards: prevState.allCards.filter(({ name }) => name !== cardName) }));
+      allCardsFiltered: prevState.allCardsFiltered
+        .filter(({ cardName }) => cardName !== param) }));
   }
 
-  // filterCardsName = ({ target }) => {
-  //   this.setState({ filter: target.value });
-  // }
+  filterName = ({ target }) => {
+    const { value, name } = target;
+    const { allCards } = this.state;
+    this.setState(({ [name]: value }), () => {
+      let allCardsFiltered = allCards.filter((card) => card.cardName.includes(value));
+      if (value === '') {
+        allCardsFiltered = allCards;
+      }
+      this.setState({ allCardsFiltered });
+    });
+  }
 
-  filterCards = ({ target }) => {
-    const { name, value } = target;
-    if (name === 'text') return this.setState({ filter: value });
-    if (name === 'rare') return this.setState({ filterRare: value });
-    // console.log(typeof (value, name));
+  filterRare = ({ target }) => {
+    const { value, name } = target;
+    const { allCards } = this.state;
+    this.setState(({ [name]: value }), () => {
+      let allCardsFiltered = allCards.filter((card) => card.rare === value);
+      if (value === 'todas') {
+        allCardsFiltered = allCards;
+      }
+      this.setState({ allCardsFiltered });
+    });
+  }
+
+  filterTrunfo = ({ target }) => {
+    const { allCards } = this.state;
+    this.setState({ disabled: target.checked });
+    if (target.checked) {
+      return this.setState({
+        allCardsFiltered: allCards
+          .filter(({ cardTrunfo }) => cardTrunfo === true),
+        filter: '',
+        filterRare: 'todas',
+      });
+    }
+    return this.setState({
+      allCardsFiltered: allCards,
+      filter: '',
+      filterRare: 'todas',
+    });
   }
 
   render() {
     const {
-      nameInpt,
-      description,
-      imageSrc,
-      attr1,
-      attr2,
-      attr3,
-      rare,
-      cardTrunfo,
-      allCards,
-      filter,
-      filterRare,
+      cardName, description, imageSrc, attr1, attr2,
+      attr3, rare, cardTrunfo, allCards, allCardsFiltered, filter, disabled, filterRare,
     } = this.state;
-    const cardsFiltered = allCards.filter(({ name, rarity }) => (name.includes(filter)
-    && filterRare === 'todas'
-      ? true : rarity === filterRare));
+
+    // const cardsfiltered = allCards.filter(({ trunfo }) => trunfo ? trunfo === true : true)
+    //   .filter(({ name, rarity }) => (name.includes(filter)
+    //   && filterRare === 'todas'
+    //     ? true : rarity === filterRare
+    //   ));
 
     return (
       <div className="App">
@@ -156,7 +173,7 @@ class App extends React.Component {
         <div className="form-card-div">
           <section className="form-sec">
             <Form
-              cardName={ nameInpt }
+              cardName={ cardName }
               cardDescription={ description }
               cardImage={ imageSrc }
               cardAttr1={ attr1 }
@@ -164,8 +181,8 @@ class App extends React.Component {
               cardAttr3={ attr3 }
               cardRare={ rare }
               cardTrunfo={ cardTrunfo }
-              hasTrunfo={ this.hasTrunfo() }
               allCards={ allCards }
+              hasTrunfo={ this.hasTrunfo() }
               onInputChange={ this.handleChange }
               isSaveButtonDisabled={ this.isdisabled() }
               onSaveButtonClick={ this.onSaveButtonClick }
@@ -174,7 +191,7 @@ class App extends React.Component {
           <section className="card-sec">
             <h2>Prévia da Carta</h2>
             <Card
-              cardName={ nameInpt }
+              cardName={ cardName }
               cardDescription={ description }
               cardImage={ imageSrc }
               cardAttr1={ attr1 }
@@ -193,38 +210,34 @@ class App extends React.Component {
               <h1>Deck de Cartas</h1>
             </legend>
             <section>
-              <input
-                data-testid="name-filter"
-                type="text"
-                name="text"
-                onChange={ this.filterCards }
+              <Input
+                filterCards={ this.filterName }
+                value={ filter }
+                disabled={ disabled }
               />
-              <Select filterCards={ this.filterCards } />
+              <Select
+                filterCards={ this.filterRare }
+                disabled={ disabled }
+              />
+              <Checkbox
+                value={ filterRare }
+                filterTrunfo={ this.filterTrunfo }
+              />
             </section>
             {
-              cardsFiltered.map(({
-                name,
-                desc,
-                image,
-                at1,
-                at2,
-                at3,
-                rarity,
-                trunfo,
-              }) => (
-                <section className="cards-deck" key={ name }>
+              allCardsFiltered.map((card) => (
+                <section className="cards-deck" key={ card.cardName }>
                   <Card
-                    cardName={ name }
-                    cardDescription={ desc }
-                    cardImage={ image }
-                    cardAttr1={ at1 }
-                    cardAttr2={ at2 }
-                    cardAttr3={ at3 }
-                    cardRare={ rarity }
-                    cardTrunfo={ trunfo }
-                    deleteCard={ () => this.deleteCard(name) }
+                    cardName={ card.cardName }
+                    cardDescription={ card.description }
+                    cardImage={ card.imageSrc }
+                    cardAttr1={ card.attr1 }
+                    cardAttr2={ card.attr2 }
+                    cardAttr3={ card.attr3 }
+                    cardRare={ card.rare }
+                    cardTrunfo={ card.cardTrunfo }
                   />
-                  <Button deleteCard={ () => this.deleteCard(name) } />
+                  <Button deleteCard={ () => this.deleteCard(card.cardName) } />
                 </section>
               ))
             }
@@ -234,5 +247,3 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;
