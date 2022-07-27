@@ -110,7 +110,6 @@ class App extends React.Component {
   deleteCard = (cardName) => {
     this.setState((prevState) => ({
       allCards: prevState.allCards.filter(({ name }) => name !== cardName) }));
-    console.log('a');
   }
 
   render() {
@@ -170,33 +169,38 @@ class App extends React.Component {
           </section>
         </div>
         <div className="cards-list">
-          {
-            allCards.map(({
-              name,
-              desc,
-              image,
-              at1,
-              at2,
-              at3,
-              rarity,
-              trunfo,
-            }) => (
-              <section className="cards-deck" key={ name }>
-                <Card
-                  cardName={ name }
-                  cardDescription={ desc }
-                  cardImage={ image }
-                  cardAttr1={ at1 }
-                  cardAttr2={ at2 }
-                  cardAttr3={ at3 }
-                  cardRare={ rarity }
-                  cardTrunfo={ trunfo }
-                  deleteCard={ () => this.deleteCard(name) }
-                />
-                <Button deleteCard={ () => this.deleteCard(name) } />
-              </section>
-            ))
-          }
+          <fieldset className="fieldset">
+            <legend className="legend">
+              <h1>Deck de Cartas</h1>
+            </legend>
+            {
+              allCards.map(({
+                name,
+                desc,
+                image,
+                at1,
+                at2,
+                at3,
+                rarity,
+                trunfo,
+              }) => (
+                <section className="cards-deck" key={ name }>
+                  <Card
+                    cardName={ name }
+                    cardDescription={ desc }
+                    cardImage={ image }
+                    cardAttr1={ at1 }
+                    cardAttr2={ at2 }
+                    cardAttr3={ at3 }
+                    cardRare={ rarity }
+                    cardTrunfo={ trunfo }
+                    deleteCard={ () => this.deleteCard(name) }
+                  />
+                  <Button deleteCard={ () => this.deleteCard(name) } />
+                </section>
+              ))
+            }
+          </fieldset>
         </div>
       </div>
     );

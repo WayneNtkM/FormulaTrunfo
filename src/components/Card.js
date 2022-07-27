@@ -69,6 +69,34 @@ export default class Card extends Component {
                 cardTrunfo ? <h4 data-testid="/trunfo-card/i">Super Trunfo</h4>
                   : <h4>{' '}</h4>
               }
+              {/* {
+                cardRare === 'normal' && (
+                  <p
+                    data-testid="rare-card"
+                    style={ { color: 'grey' } }
+                  >
+                    Normal
+                  </p>)
+              }
+              {
+                cardRare === 'raro' && (
+                  <p
+                    data-testid="rare-card"
+                    style={ { color: 'rgb(10, 88, 157)' } }
+                  >
+                    Raro
+                  </p>)
+              }
+              {
+                cardRare === 'muito raro' && (
+                  <p
+                    data-testid="rare-card"
+                    style={ { color: 'gold' } }
+                  >
+                    Muito Raro
+                  </p>
+                )
+              } */}
               <p
                 data-testid="rare-card"
               >

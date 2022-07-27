@@ -25,6 +25,10 @@
   color: white;
 }
 
+input, button, label, select {
+  cursor: pointer;
+}
+
 .form-card-div {
   display: flex;
   flex-flow: row wrap;
@@ -57,13 +61,12 @@
 }
 
 .form textarea, .form select {
-  border-radius: 6px;
+  background: transparent;
+  color: white;
   padding: 6px;
 }
 
 .inpt-name {
-  border: transparent;
-  border-bottom: 1px solid grey;
   padding: 6px;
 }
 
