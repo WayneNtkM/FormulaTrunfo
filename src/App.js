@@ -4,6 +4,7 @@ import Form from './components/Form';
 import './style/style.css';
 import './style/card.css';
 import Button from './components/Button';
+import Select from './components/Select';
 
 class App extends React.Component {
   constructor() {
@@ -19,6 +20,8 @@ class App extends React.Component {
       rare: 'normal',
       cardTrunfo: false,
       allCards: [],
+      filter: '',
+      filterRare: 'todas',
     };
   }
 
@@ -112,6 +115,17 @@ class App extends React.Component {
       allCards: prevState.allCards.filter(({ name }) => name !== cardName) }));
   }
 
+  // filterCardsName = ({ target }) => {
+  //   this.setState({ filter: target.value });
+  // }
+
+  filterCards = ({ target }) => {
+    const { name, value } = target;
+    if (name === 'text') return this.setState({ filter: value });
+    if (name === 'rare') return this.setState({ filterRare: value });
+    // console.log(typeof (value, name));
+  }
+
   render() {
     const {
       nameInpt,
@@ -123,7 +137,12 @@ class App extends React.Component {
       rare,
       cardTrunfo,
       allCards,
+      filter,
+      filterRare,
     } = this.state;
+    const cardsFiltered = allCards.filter(({ name, rarity }) => (name.includes(filter)
+    && filterRare === 'todas'
+      ? true : rarity === filterRare));
 
     return (
       <div className="App">
@@ -173,8 +192,17 @@ class App extends React.Component {
             <legend className="legend">
               <h1>Deck de Cartas</h1>
             </legend>
+            <section>
+              <input
+                data-testid="name-filter"
+                type="text"
+                name="text"
+                onChange={ this.filterCards }
+              />
+              <Select filterCards={ this.filterCards } />
+            </section>
             {
-              allCards.map(({
+              cardsFiltered.map(({
                 name,
                 desc,
                 image,
