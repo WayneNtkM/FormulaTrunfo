@@ -103,6 +103,9 @@ export default class App extends React.Component {
 
   deleteCard = (param) => {
     this.setState((prevState) => ({
+      allCards: prevState.allCards
+        .filter(({ cardName }) => cardName !== param) }));
+    this.setState((prevState) => ({
       allCardsFiltered: prevState.allCardsFiltered
         .filter(({ cardName }) => cardName !== param) }));
   }
@@ -154,13 +157,6 @@ export default class App extends React.Component {
       cardName, description, imageSrc, attr1, attr2,
       attr3, rare, cardTrunfo, allCards, allCardsFiltered, filter, disabled, filterRare,
     } = this.state;
-
-    // const cardsfiltered = allCards.filter(({ trunfo }) => trunfo ? trunfo === true : true)
-    //   .filter(({ name, rarity }) => (name.includes(filter)
-    //   && filterRare === 'todas'
-    //     ? true : rarity === filterRare
-    //   ));
-
     return (
       <div className="App">
         <header className="header">
