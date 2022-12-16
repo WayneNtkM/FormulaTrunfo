@@ -1,12 +1,16 @@
 import React from 'react';
-import Card from './components/Card';
-import Form from './components/Form';
+// import Card from './components/Card';
+import Card from './components/implementations/Card';
+// import Form from './components/Form';
+import FormTest from './components/implementations/Form';
 import './style/style.css';
 import './style/card.css';
 import Button from './components/Button';
 import Select from './components/Select';
 import Checkbox from './components/Checkbox';
 import Input from './components/Input';
+import Deck from './components/implementations/Deck';
+// import Popup from './components/popup/Popup';
 
 export default class App extends React.Component {
   constructor() {
@@ -168,7 +172,8 @@ export default class App extends React.Component {
         </header>
         <div className="form-card-div">
           <section className="form-sec">
-            <Form
+            <FormTest />
+            {/* <Form
               cardName={ cardName }
               cardDescription={ description }
               cardImage={ imageSrc }
@@ -182,11 +187,12 @@ export default class App extends React.Component {
               onInputChange={ this.handleChange }
               isSaveButtonDisabled={ this.isdisabled() }
               onSaveButtonClick={ this.onSaveButtonClick }
-            />
+            /> */}
           </section>
+          {/* <Popup trigger={ !true }> */}
           <section className="card-sec">
             <h2>Prévia da Carta</h2>
-            <Card
+            {/* <Card
               cardName={ cardName }
               cardDescription={ description }
               cardImage={ imageSrc }
@@ -197,11 +203,14 @@ export default class App extends React.Component {
               cardTrunfo={ cardTrunfo }
               hasTrunfo={ this.hasTrunfo() }
               onInputChange={ this.handleChange }
-            />
+            /> */}
+            <Card />
           </section>
+
+          {/* </Popup> */}
         </div>
         <div className="cards-list">
-          <fieldset className="fieldset">
+          {/* <fieldset className="fieldset">
             <legend className="legend">
               <h1>Deck de Cartas</h1>
             </legend>
@@ -237,7 +246,8 @@ export default class App extends React.Component {
                 </section>
               ))
             }
-          </fieldset>
+          </fieldset> */}
+          <Deck />
         </div>
       </div>
     );
