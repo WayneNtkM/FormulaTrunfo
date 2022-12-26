@@ -1,16 +1,9 @@
 import React from 'react';
-// import Card from './components/Card';
 import Card from './components/implementations/Card';
-// import Form from './components/Form';
 import FormTest from './components/implementations/Form';
 import './style/style.css';
 import './style/card.css';
-// import Button from './components/Button';
-// import Select from './components/Select';
-// import Checkbox from './components/Checkbox';
-// import Input from './components/Input';
 import Deck from './components/implementations/Deck';
-// import Popup from './components/popup/Popup';
 
 export default function App() {
   // constructor() {
