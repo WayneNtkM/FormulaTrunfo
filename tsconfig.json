@@ -5,6 +5,6 @@
     "strict": true,
     "module": "commonjs",
   },
-  "include": ["/**/*.ts"],
+  "include": ["/**/*.ts", "src/components/popup/Popup.tsx"],
   "exclude": ["node_modules"]
 }
