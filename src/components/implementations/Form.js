@@ -18,17 +18,18 @@ function Form() {
 
   return (
     <form className="form">
-      Nome
+      <p>Nome</p>
       <input
         data-testid="name-input"
         className="inpt-name"
+        id="name-inpt"
         type="text"
-        placeholder="placeholder"
+        placeholder="Ayrton Senna"
         name="cardName"
         value={ form.cardName }
         onChange={ onInputChange }
       />
-      Descrição
+      <p>Descrição</p>
       <textarea
         data-testid="description-input"
         className="inpt-desc"
@@ -39,7 +40,7 @@ function Form() {
       />
       <div className="attr-img-div">
         <section>
-          Atk
+          <p>Atk</p>
           <input
             data-testid="attr1-input"
             className="inpt-attr1 attr"
@@ -51,7 +52,7 @@ function Form() {
           />
         </section>
         <section>
-          Def
+          <p>Def</p>
           <input
             data-testid="attr2-input"
             className="inpt-attr2 attr"
@@ -63,7 +64,7 @@ function Form() {
           />
         </section>
         <section>
-          Overall
+          <p>Overall</p>
           <input
             data-testid="attr3-input"
             className="inpt-attr3 attr"
@@ -75,17 +76,17 @@ function Form() {
           />
         </section>
         <section className="img-sec">
-          Imagem
+          <p>Imagem</p>
           <input
             data-testid="image-input"
-            placeholder="placeholder"
+            placeholder="https://www.autoracing.com.br/wp-content/uploads/2020/03/f1-ayrton-senna-capacete.jpg"
             value={ form.imageSrc }
             name="imageSrc"
             onChange={ onInputChange }
           />
         </section>
       </div>
-      Raridade
+      <p>Raridade</p>
       <select
         data-testid="rare-input"
         className="inpt-rare"
