@@ -1,4 +1,12 @@
 @media(max-width: 500px) {
+  .form p {
+    font-size: 4vw;
+  }
+
+  .form input::placeholder {
+    font-size: 3vw;
+  }
+
   .form-card-div {
     align-content: center;
     display: flex;
@@ -16,6 +24,22 @@
 
   .img-card, .img-card img {
     width: 100px;
+  }
+
+  .img-sec input {
+    width: 40vw;
+  }
+
+  .img-sec input::placeholder {
+    font-size: 4vw;
+  }
+
+  .attr-img-div p {
+    width: 4vw;
+  }
+
+  .attr {
+    width: 40vw;
   }
 }
 
